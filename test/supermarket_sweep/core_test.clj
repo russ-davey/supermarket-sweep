@@ -1,7 +1,8 @@
 (ns supermarket-sweep.core-test
   (:require [clojure.test :refer :all]
-            [supermarket-sweep.core :refer :all]))
+            [supermarket-sweep.core :as target]))
 
-(deftest a-test
-  (testing "FIXME, I fail."
-    (is (= 0 1))))
+(deftest shopping-list->shopping-list+prices
+  (testing "prices are added to the shopping list"
+    (let [results (target/shopping-list->shopping-list+prices ["beans-tin"])]
+      (println results))))
