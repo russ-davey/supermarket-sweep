@@ -1,48 +1,53 @@
 (ns supermarket-sweep.core)
 
-(defmulti item->item+price
+(defn apply-promotions
+  [])
+
+(defn calculate-price
+  [shopping-list]
+  )
+
+(defmulti item->item+details
           "Given an item, look up the price and return a map that includes the price
           and any promotions.
           In production this would be a database query but for the purpose of this
           exercise the values and promotions will be hardcoded"
           :item)
 
-(defn apply-promotions
-  [])
-
-(defmethod item->item+price "beans-tin"
+(defmethod item->item+details "beans-tin"
   [{:keys [item]}]
-  {:item item :price-per-unit 0.50})
+  {:item item :name "Beans" :price-per-unit 1.75 :promo-code "super-1"})
 
-(defmethod item->item+price "onion"
+(defmethod item->item+details "onion"
   [{:keys [item]}]
-  {:item item :price-per-kg 0.29})
+  {:item item :name "Onions" :price-per-kg 0.29 :promo-code "super-2"})
 
-(defmethod item->item+price "coke"
+(defmethod item->item+details "coke-can"
   [{:keys [item]}]
-  {:item item :price-per-unit 0.70})
+  {:item item :name "Coke" :price-per-unit 0.70 :promo-code "super-3"})
 
-(defmethod item->item+price "brown-ale-bottle"
+(defmethod item->item+details "large-oranges"
   [{:keys [item]}]
-  {:item item :price-per-unit 2.25})
+  {:item item :name "Oranges" :price-per-unit 0.73})
 
-(defmethod item->item+price "cask-ale-bottle"
+(defmethod item->item+details "brown-ale-bottle"
   [{:keys [item]}]
-  {:item item :price-per-unit 2.25})
+  {:item item :name "Brown Ale" :price-per-unit 2.25 :promo-code "super-4"})
 
-(defmethod item->item+price "pale-ale-bottle"
+(defmethod item->item+details "cask-ale-bottle"
   [{:keys [item]}]
-  {:item item :price-per-unit 2.25})
+  {:item item :name "Cask Ale" :price-per-unit 2.57 :promo-code "super-4"})
 
-(defmethod item->item+price :default
+(defmethod item->item+details "pale-ale-bottle"
+  [{:keys [item]}]
+  {:item item :name "Pale Ale" :price-per-unit 2.99 :promo-code "super-4"})
+
+(defmethod item->item+details :default
   [{:keys [item]}]
   (str "Unknown item: " item))
 
-(defn shopping-list->shopping-list+prices
+(defn shopping-list->shopping-list+details
+  "Given a vector of items look up item details and return a map"
   [shopping-list]
   (->> shopping-list
-      (map #(item->item+price %))))
-
-(defn calculate-price
-  [shopping-list]
-  )
+       (map #(item->item+details %))))
