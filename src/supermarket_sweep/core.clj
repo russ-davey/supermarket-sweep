@@ -11,8 +11,7 @@
   {:promo-code "two-for-one-pound-coke"
    :promotion-name "Coke 2 for £1"
    :promo-price 1.00
-   :buy 2
-   :free 1})
+   :buy 2})
 
 (def cure-for-what-ales-you
   {:promo-code "cure-for-what-ales-you"
