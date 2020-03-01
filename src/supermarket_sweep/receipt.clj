@@ -1,2 +1,1 @@
 (ns supermarket-sweep.receipt)
-

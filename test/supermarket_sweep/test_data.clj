@@ -5,12 +5,12 @@
                           {:item "onion"}
                           {:item "coke-can"}
                           {:item "brown-ale-bottle"}
-                          {:item "onion" :weight 0.500}])
+                          {:item "onion" :weight 0.535}])
 
 (def shopping-list [{:item "beans-tin"}
                     {:item "beans-tin"}
                     {:item "beans-tin"}
-                    {:item "onion" :weight 0.500}
+                    {:item "onion" :weight 0.535}
                     {:item "coke-can"}
                     {:item "coke-can"}
                     {:item "brown-ale-bottle"}
@@ -33,13 +33,15 @@
    :promo-code "two-for-one-pound-coke"
    :promotion-name "Coke 2 for £1"
    :promo-price 1.00
-   :buy 2})
+   :buy 2
+   :free 1})
 
 (def onions
   {:item "onion"
    :name "Onions"
    :price-per-weight 0.29
-   :weight 0.435})
+   :weight 0.435
+   :price-per-unit 0.13})
 
 (def oranges
   {:item "oranges"

@@ -7,6 +7,11 @@
   [shopping-list]
   )
 
+(defn format-double
+  [double]
+  (Double/parseDouble
+    (format "%.2f" double)))
+
 (defmulti item->item+details
           "Given an item, look up the price and return a map that includes the price
           and any promotions.
@@ -30,16 +35,21 @@
   {:item item
    ;:name "Onions"
    :name (str "Onions " weight
-              " kg @ 0.29/kg")
+              " kg @ £0.29/kg")
    :price-per-kg 0.29
-   :weight weight})
+   :weight weight
+   :price-per-unit (format-double (* 0.29 weight))})
 
 (defmethod item->item+details "coke-can"
   [{:keys [item]}]
   {:item item
    :name "Coke"
    :price-per-unit 0.70
-   :promo-code "super-3"})
+   :promo-code "two-for-one-pound-coke"
+   :promotion-name "Coke 2 for £1"
+   :promo-price 1.00
+   :buy 2
+   :free 1})
 
 (defmethod item->item+details "large-oranges"
   [{:keys [item]}]

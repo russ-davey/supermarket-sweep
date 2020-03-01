@@ -30,28 +30,31 @@
       ))
 
 (defmethod items->discount "bogof-beans"
-  [_ items]
+  [acc items]
   (let [first-item (first (second items))
         discount (bogof (:buy first-item)
                         (:free first-item)
                         (count (second items))
                         (:price-per-unit first-item))]
     (if (< discount 0)
-      {:name (:promotion-name first-item)
-       :discount discount})))
+      (conj acc
+            {:name (:promotion-name first-item)
+             :discount discount}))))
 
 (defmethod items->discount "two-for-one-pound-coke"
-  [_ items]
-  (clojure.pprint/pprint items)
+  [acc items]
+  ;(clojure.pprint/pprint items)
   (let [first-item (first (second items))
         discount (x-for-y (:buy first-item)
+                          (:free first-item)
                           (:promo-price first-item)
                           (count (second items))
                           (:price-per-unit first-item))]
     (print "discount:" discount)
     (if (< discount 0)
-      {:name (:promotion-name first-item)
-       :discount discount})))
+      (conj acc
+            {:name (:promotion-name first-item)
+             :discount discount}))))
 
 (defmethod items->discount :default
   [accumulator _]

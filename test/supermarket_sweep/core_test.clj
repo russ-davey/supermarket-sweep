@@ -28,9 +28,9 @@
                :promo-code "super-4"
                :promotion-name "3 ales for £6"}
               {:item "onion"
-               :name "Onions 500 kg @ 0.29/kg"
+               :name "Onions 0.535 kg @ 0.29/kg"
                :price-per-kg 0.29
-               :weight 500}]
+               :weight 0.535}]
              results)))))
 
 
