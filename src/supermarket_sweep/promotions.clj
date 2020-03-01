@@ -57,8 +57,8 @@
              :discount discount}))))
 
 (defmethod items->discount :default
-  [accumulator _]
-  accumulator)
+  [acc _]
+  acc)
 
 (defn shopping-list+details->discounts
   [shopping-list]

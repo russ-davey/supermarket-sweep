@@ -1,11 +1,24 @@
 (ns supermarket-sweep.core)
 
-(defn apply-promotions
-  [])
+; List of promotions
+(def bogof-beans
+  {:promo-code "bogof-beans"
+   :promotion-name "Beans 3 for 2"
+   :buy 3
+   :free 2})
 
-(defn calculate-price
-  [shopping-list]
-  )
+(def two-for-one-pound-coke
+  {:promo-code "two-for-one-pound-coke"
+   :promotion-name "Coke 2 for £1"
+   :promo-price 1.00
+   :buy 2
+   :free 1})
+
+(def cure-for-what-ales-you
+  {:promo-code "cure-for-what-ales-you"
+   :promotion-name "3 ales for £6"
+   :promo-price 6.00
+   :buy 3})
 
 (defn format-double
   [double]
@@ -21,35 +34,30 @@
 
 (defmethod item->item+details "beans-tin"
   [{:keys [item]}]
-  {:item "beans-tin"
-   :name "Beans"
-   :price-per-unit 1.75
-   :promo-code "bogof-beans"
-   :promotion-name "Beans 3 for 2"
-   :buy 3
-   :free 2})
+  (conj {:item item
+         :name "Beans"
+         :price-per-unit 1.75}
+        bogof-beans))
 
 ; At checkout the weight is input in kg when the item is scanned
 (defmethod item->item+details "onion"
   [{:keys [item weight]}]
-  {:item item
-   ;:name "Onions"
-   :name (str "Onions " weight
-              " kg @ £0.29/kg")
-   :price-per-kg 0.29
-   :weight weight
-   :price-per-unit (format-double (* 0.29 weight))})
+  (if (nil? weight)
+    ; raise exception here if weight hasn't been entered
+    (println "Please enter weight")
+    {:item item
+     :name (str "Onions " weight
+                " kg @ £0.29/kg")
+     :price-per-kg 0.29
+     :weight weight
+     :price-per-unit (format-double (* 0.29 weight))}))
 
 (defmethod item->item+details "coke-can"
   [{:keys [item]}]
-  {:item item
-   :name "Coke"
-   :price-per-unit 0.70
-   :promo-code "two-for-one-pound-coke"
-   :promotion-name "Coke 2 for £1"
-   :promo-price 1.00
-   :buy 2
-   :free 1})
+  (conj {:item item
+         :name "Coke"
+         :price-per-unit 0.70}
+        two-for-one-pound-coke))
 
 (defmethod item->item+details "large-oranges"
   [{:keys [item]}]
@@ -65,27 +73,24 @@
 
 (defmethod item->item+details "brown-ale-bottle"
   [{:keys [item]}]
-  {:item item
-   :name "Brown Ale"
-   :price-per-unit 2.25
-   :promo-code "super-4"
-   :promotion-name "3 ales for £6"})
+  (conj {:item item
+         :name "Brown Ale"
+         :price-per-unit 2.25}
+        cure-for-what-ales-you))
 
 (defmethod item->item+details "cask-ale-bottle"
   [{:keys [item]}]
-  {:item item
-   :name "Cask Ale"
-   :price-per-unit 2.57
-   :promo-code "super-4"
-   :promotion-name "3 ales for £6"})
+  (conj {:item item
+         :name "Cask Ale"
+         :price-per-unit 2.57}
+        cure-for-what-ales-you))
 
 (defmethod item->item+details "pale-ale-bottle"
   [{:keys [item]}]
-  {:item item
-   :name "Pale Ale"
-   :price-per-unit 2.99
-   :promo-code "super-4"
-   :promotion-name "3 ales for £6"})
+  (conj {:item item
+         :name "Pale Ale"
+         :price-per-unit 2.99}
+        cure-for-what-ales-you))
 
 (defmethod item->item+details :default
   [{:keys [item]}]
