@@ -6,22 +6,31 @@
 (deftest apply-bogof-promotion
   (testing "bogof 1 beans"
     (let [results (target/shopping-list+details->discounts
-                    test-data/shopping-list-small)]
-      (is (empty?
+                    [test-data/beans])]
+      (is (nil?
             results))))
   (testing "bogof 3 beans"
     (let [results (target/shopping-list+details->discounts
-                    test-data/shopping-list-bogof)]
+                    [test-data/beans
+                     test-data/beans
+                     test-data/beans])]
       (is (=  {:name "Beans 3 for 2" :discount -1.75}
              results))))
   (testing "bogof 4 beans"
     (let [results (target/shopping-list+details->discounts
-                    test-data/shopping-list-bogof)]
+                    [test-data/beans
+                     test-data/beans
+                     test-data/beans
+                     test-data/beans])]
       (is (= {:name "Beans 3 for 2" :discount -1.75}
              results))))
   (testing "bogof 6 beans"
     (let [results (target/shopping-list+details->discounts
-                    (conj test-data/shopping-list-bogof
-                          test-data/shopping-list-bogof))]
-      (is (= {:name "Beans 3 for 2" :discount -3.00}
+                    [test-data/beans
+                     test-data/beans
+                     test-data/beans
+                     test-data/beans
+                     test-data/beans
+                     test-data/beans])]
+      (is (= {:name "Beans 3 for 2" :discount -3.50}
              results)))))

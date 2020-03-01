@@ -16,9 +16,8 @@
                     {:item "cask-ale-bottle"}
                     {:item "pale-ale-bottle"}])
 
-(def shopping-list-bogof
-  [{:item "beans-tin" :name "Beans" :price-per-unit 1.75 :promo-code "bogof-beans" :parameter1 3 :parameter2 2}
-   {:item "beans-tin" :name "Beans" :price-per-unit 1.75 :promo-code "bogof-beans" :parameter1 3 :parameter2 2}
-   {:item "beans-tin" :name "Beans" :price-per-unit 1.75 :promo-code "bogof-beans" :parameter1 3 :parameter2 2}
-   {:item "oranges" :price-per-unit 0.73}
-   {:item "oranges" :price-per-unit 0.73}])
+(def beans
+  {:item "beans-tin" :name "Beans" :price-per-unit 1.75 :promo-code "bogof-beans" :parameter1 3 :parameter2 2})
+
+(def oranges
+  {:item "oranges" :price-per-unit 0.73})
