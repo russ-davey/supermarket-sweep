@@ -7,14 +7,17 @@
   (testing "prices are added to the shopping list"
     (let [results (target/shopping-list->shopping-list+details
                     test-data/shopping-list-small)]
-      (is (= [{:item "beans-tin"
+      (is (= [{:buy 3
+               :free 2
+               :item "beans-tin"
                :name "Beans"
                :price-per-unit 1.75
-               :promo-code "super-1"}
+               :promo-code "bogof-beans"
+               :promotion-name "Beans 3 for 2"}
               {:item "onion"
-               :name "Onions"
+               :name "Onions  kg @ 0.29/kg"
                :price-per-kg 0.29
-               :promo-code "super-2"}
+               :weight nil}
               {:item "coke-can"
                :name "Coke"
                :price-per-unit 0.7
@@ -22,9 +25,13 @@
               {:item "brown-ale-bottle"
                :name "Brown Ale"
                :price-per-unit 2.25
-               :promo-code "super-4"}]
+               :promo-code "super-4"
+               :promotion-name "3 ales for £6"}
+              {:item "onion"
+               :name "Onions 500 kg @ 0.29/kg"
+               :price-per-kg 0.29
+               :weight 500}]
              results)))))
-
 
 
 

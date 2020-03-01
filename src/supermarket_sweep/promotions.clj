@@ -5,6 +5,7 @@
           (fn [_ items]
             (first items)))
 
+; TODO: refactor free name to for
 (defn bogof
   "calculate the bogof discount for a group of items"
   [buy free quantity price-per-unit]
@@ -14,16 +15,42 @@
       (- quantity)
       (* price-per-unit)))
 
+(defn x-for-y
+  "calculate the discount when buying multiple items for a set price"
+  [buy free promo-price quantity price-per-unit]
+  (-> (int (/ quantity buy))
+      (* free)
+      (+ (mod quantity buy))
+      (- quantity)
+      ; what's left?
+  ;(-> (int (/ quantity buy))
+  ;    (* promo-price)
+  ;    ; add the extra one here on
+  ;    (+ (mod quantity buy))
+      ))
+
 (defmethod items->discount "bogof-beans"
   [_ items]
   (let [first-item (first (second items))
-        name (:name first-item)
-        parameter1 (:parameter1 first-item)
-        parameter2 (:parameter2 first-item)
-        price-per-unit (:price-per-unit first-item)
-        discount (bogof parameter1 parameter2 (count (second items)) price-per-unit)]
-    (if (> 0 discount)
-      {:name (str name " " parameter1 " for " parameter2)
+        discount (bogof (:buy first-item)
+                        (:free first-item)
+                        (count (second items))
+                        (:price-per-unit first-item))]
+    (if (< discount 0)
+      {:name (:promotion-name first-item)
+       :discount discount})))
+
+(defmethod items->discount "two-for-one-pound-coke"
+  [_ items]
+  (clojure.pprint/pprint items)
+  (let [first-item (first (second items))
+        discount (x-for-y (:buy first-item)
+                          (:promo-price first-item)
+                          (count (second items))
+                          (:price-per-unit first-item))]
+    (print "discount:" discount)
+    (if (< discount 0)
+      {:name (:promotion-name first-item)
        :discount discount})))
 
 (defmethod items->discount :default

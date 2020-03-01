@@ -1,0 +1,2 @@
+(ns supermarket-sweep.receipt)
+
