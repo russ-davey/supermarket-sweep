@@ -18,7 +18,6 @@
                :promotion-name "Beans 3 for 2"}
               nil
               {:buy 2
-               :free 1
                :item "coke-can"
                :name "Coke"
                :price-per-unit 0.7

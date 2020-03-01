@@ -22,15 +22,10 @@
   (let [cost-of-packs
         (-> (int (/ quantity buy))
             (+ (mod quantity buy))
-            (- quantity)
-            (* promo-price))
+            (- quantity))
         extras (* (mod quantity buy) price-per-unit)
         total-cost-with (- (- cost-of-packs extras))
         total-cost-without (* quantity price-per-unit)]
-    ;(println "extras" extras)
-    ;(println "total cost with discount:" total-cost-with)
-    ;(println "total cost without discount" total-cost-without)
-    ;(println "discount:" (- total-cost-without total-cost-with))
     (Double/parseDouble
       (format "%.2f" (- (- total-cost-without total-cost-with))))))
 
@@ -58,13 +53,15 @@
             {:name (:promotion-name first-item)
              :discount discount}))))
 
-(defmethod items->discount "cure-for-what-ales-you-test"
+(defmethod items->discount "cure-for-what-ales-you"
   [acc items]
+  ; do for all items as each have different prices
   (let [first-item (first (second items))
         discount (x-for-y-pounds (:buy first-item)
                                  (:promo-price first-item)
                                  (count (second items))
                                  (:price-per-unit first-item))]
+    (println first-item)
     (print "discount:" discount)
     (if (< discount 0)
       (conj acc
