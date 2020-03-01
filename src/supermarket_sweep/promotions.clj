@@ -74,5 +74,6 @@
 
 (defn shopping-list+details->discounts
   [shopping-list]
-  (->> (group-by :promo-code shopping-list)
+  (->> shopping-list
+       (group-by :promo-code)
        (reduce items->discount ())))
